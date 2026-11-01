@@ -5,7 +5,6 @@ import { dhakaDay, money, resolveRange, inRange } from "@/lib/dateRange";
 import RangeFilter from "./RangeFilter";
 import Icon from "./Icon";
 import RecentLimit from "./RecentLimit";
-import CountUp from "./CountUp";
 import LiveClock from "./LiveClock";
 import OrderCalendar from "./OrderCalendar";
 import { LIMITS } from "@/lib/dateRange";
@@ -194,7 +193,7 @@ export default async function Dashboard({ searchParams }) {
         <div className="dash-hero-stats">
           <div className="dash-big">
             <small>কনফার্মড বিক্রি</small>
-            <b><CountUp value={money(sum(sales))} /></b>
+            <b>{money(sum(sales))}</b>
           </div>
           <div className="dash-ring" style={{ "--p": confirmRate ?? 0 }}>
             <b>{confirmRate === null ? "—" : `${confirmRate}%`}</b>
@@ -260,7 +259,7 @@ export default async function Dashboard({ searchParams }) {
             <span className={`kpi-ico k-${c.color}`}><Icon name={c.icon} size={20} /></span>
             <div>
               <small>{c.label}</small>
-              <b><CountUp value={c.value} /></b>
+              <b>{c.value}</b>
               {c.t !== null && (
                 <em className={c.t >= 0 ? "up" : "down"}>
                   <Icon name={c.t >= 0 ? "up" : "down"} size={13} /> {Math.abs(c.t)}% <span>আগের সময়ের তুলনায়</span>

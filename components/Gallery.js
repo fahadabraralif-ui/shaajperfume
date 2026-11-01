@@ -8,7 +8,7 @@ export default function Gallery({ images, brand, badge = "🎁 +১টি ৬ম
   return (
     <div className="gallery">
       <div className="gallery-main">
-        <img src={images[active]} alt={`${brand} Signature Perfume Combo`} />
+        <img src={images[active]} alt={`${brand} Signature Perfume Combo`} fetchPriority="high" />
         {badge && <span className="gallery-badge">{badge}</span>}
       </div>
       <div className="gallery-thumbs">
@@ -19,7 +19,7 @@ export default function Gallery({ images, brand, badge = "🎁 +১টি ৬ম
             onClick={() => setActive(active === i + 1 ? 0 : i + 1)}
             aria-label={`Thumb ${i + 1}`}
           >
-            <img src={src} alt="" />
+            <img src={src} alt="" loading="lazy" decoding="async" />
           </button>
         ))}
       </div>

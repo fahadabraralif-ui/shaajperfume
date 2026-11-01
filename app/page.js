@@ -1,3 +1,4 @@
+import { cache } from "react";
 import { site, bn, tk } from "@/data/site";
 import { getSettings, getProducts, deliveryOptions } from "@/lib/store";
 import { getContent, fillTokens, tokenVars } from "@/lib/content";
@@ -7,12 +8,11 @@ import OrderForm from "@/components/OrderForm";
 import Tracking from "@/components/Tracking";
 import Brand from "@/components/Brand";
 import VoicePlayer from "@/components/VoicePlayer";
-import Reveal from "@/components/Reveal";
-import RevealInit from "@/components/RevealInit";
 import "./motion.css";
 
 // Admin > ল্যান্ডিং পেজ টেক্সট er lekha + {price} er moto token boshano
-async function loadPage() {
+// cache: metadata ar page ek request e ekbar-i DB theke ane
+const loadPage = cache(async () => {
   const [s, products] = await Promise.all([getSettings(), getProducts()]);
   const delivery = deliveryOptions(s);
   const main = products[0] || { price: site.price, old_price: site.oldPrice };
@@ -21,7 +21,7 @@ async function loadPage() {
   const content = getContent(s);
   const t = (k) => fillTokens(content.text[k], vars);
   return { s, products, delivery, main, oldPrice, content, vars, t };
-}
+});
 
 // [ ] er bhitorer lekha sonali highlight
 function H({ text }) {
@@ -67,10 +67,8 @@ export default async function Home() {
 
   return (
     <>
-      <RevealInit />
       <Tracking pixel={s.fb_pixel} gtm={s.gtm_id} />
       <VoicePlayer src={s.voice} />
-      <Reveal />
       <div className="topbar">
         <span>{t("topbar")}</span>
         <span className="topbar-cod">{t("topbar_cod")}</span>
@@ -165,7 +163,7 @@ export default async function Home() {
       <section className="section alt">
         <div className="container gift-grid">
           <div className="gift-img">
-            <img src="/images/gift.png" alt="Secret Perfume 6ml" />
+            <img src="/images/gift.png" alt="Secret Perfume 6ml" loading="lazy" decoding="async" />
           </div>
           <div>
             <span className="eyebrow">{t("gift_eyebrow")}</span>
@@ -188,7 +186,7 @@ export default async function Home() {
           <div className="compare">
             <div className="compare-col good">
               <div className="compare-head">
-                <img src="/images/hawas-ice.avif" alt={t("good_title")} />
+                <img src="/images/hawas-ice.avif" alt={t("good_title")} loading="lazy" decoding="async" />
                 <div>
                   <small>{t("good_small")}</small>
                   <h3>{t("good_title")}</h3>
@@ -237,7 +235,7 @@ export default async function Home() {
 
           <div className="package-card">
             <div className="package-img">
-              <img src={productImage} alt={t("pkg_name")} />
+              <img src={productImage} alt={t("pkg_name")} loading="lazy" decoding="async" />
             </div>
             <div className="package-body">
               <h3>{t("pkg_name")}</h3>

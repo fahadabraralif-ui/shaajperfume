@@ -1,5 +1,4 @@
-/* Admin animation — page khulle card gulo uthe ashe, gradient chole, chart bere othe.
-   Mouse rakhle kono kichu lafay/nore na. Shudhu DASHBOARD er card e ekta unique effect (niche, HoverFX.js). */
+/* Admin effect — animation shob bondho (file er sheshe), shudhu mouse rakhle halka hover effect */
 
 @keyframes adm-rise { from { opacity: 0; transform: translateY(18px) scale(.98); } }
 @keyframes adm-pop { 0% { opacity: 0; transform: scale(.85) translateY(10px); } 70% { transform: scale(1.03); } }
@@ -260,47 +259,9 @@
 .adm-logo-img { transition: filter .3s ease; }
 .adm-logo:hover .adm-logo-img { filter: drop-shadow(0 0 16px rgba(250, 204, 21, .7)); }
 
-/* =================== Shudhu DASHBOARD: mouse rakhle unique effect ===================
-   Card nore na — border ghire alor dhumketu ghore, mouse er niche alo, icon coin er moto ghore, number e jhilik.
-   HoverFX.js shudhu /admin page e .fx-on class ar mouse er jayga (--mx/--my) dey. */
-@property --fx-a { syntax: "<angle>"; inherits: false; initial-value: 0deg; }
-@keyframes fx-orbit { to { --fx-a: 360deg; } }
-@keyframes fx-flip { from { transform: perspective(300px) rotateY(0); } to { transform: perspective(300px) rotateY(360deg); } }
-@keyframes fx-glow {
-  0%, 100% { filter: drop-shadow(0 0 6px rgba(192, 132, 252, .4)); }
-  50% { filter: drop-shadow(0 0 16px rgba(192, 132, 252, .7)) drop-shadow(0 0 26px rgba(250, 204, 21, .3)); }
-}
-@keyframes fx-text-sheen { from { background-position: 150% 0; } to { background-position: -50% 0; } }
-@keyframes fx-spot-in { from { opacity: 0; } }
+/* Shob keyframe animation bondho — page druto dekhay, shudhu upore deya hover effect gulo thake */
+.adm *, .adm *::before, .adm *::after { animation: none !important; }
 
-.fx-on { position: relative; overflow: hidden; animation: fx-glow 2s ease-in-out infinite !important; }
-.fx-spot {
-  position: absolute; inset: 0; z-index: 3; pointer-events: none; border-radius: inherit;
-  background:
-    radial-gradient(220px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .35), transparent 60%),
-    radial-gradient(420px circle at var(--mx, 50%) var(--my, 50%), rgba(192, 132, 252, .14), transparent 65%);
-  animation: fx-spot-in .25s ease;
-}
-/* Border ghire rongin alor dhumketu */
-.fx-spot::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; padding: 2px;
-  background: conic-gradient(from var(--fx-a), transparent 0 70%, #c084fc 82%, #f0abfc 88%, #facc15 94%, transparent 100%);
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  animation: fx-orbit 2.2s linear infinite;
-}
-.kpi .fx-spot { background: radial-gradient(240px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .4), transparent 60%); }
-.kpi .fx-spot::after { background: conic-gradient(from var(--fx-a), transparent 0 70%, rgba(255, 255, 255, .9) 88%, #fde68a 94%, transparent 100%); }
-/* Icon coin er moto ekbar 3D te ghore */
-.fx-on .kpi-ico, .fx-on .top-num { animation: fx-flip .9s cubic-bezier(.4, 0, .2, 1); }
-/* Number er upor diye sonali jhilik */
-.kpi.fx-on b {
-  background: linear-gradient(110deg, currentColor 40%, #fff7d6 50%, currentColor 60%) 0 0 / 250% 100%;
-  -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
-  animation: fx-text-sheen 1.2s ease;
-}
-
-/* Jara animation bondho rekheche (phone/PC setting) tader jonno shob thamano */
 @media (prefers-reduced-motion: reduce) {
-  .adm *, .adm *::before, .adm *::after { animation: none !important; transition: none !important; }
+  .adm *, .adm *::before, .adm *::after { transition: none !important; }
 }
